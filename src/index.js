@@ -1,23 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+// import './index.css';
+import CreateForm from './Containers/DynamicForm/CreateForm';
 import registerServiceWorker from './registerServiceWorker';
-import {createStore, combineReducers} from 'redux'
+// import '../node_modules/popper.js/dist/popper'
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import {createStore} from 'redux'
 import {Provider} from 'react-redux'
-import init from './Store'
+import {CreateFormReducer} from './Reducers/DynamicForm/CreateForm'
+// import init from './Store'
 
-import {headerNav} from './Containers/HeaderNav/action_reducer'
-import {coverPhoto} from './Containers/CoverPhoto/action_reducer'
-import {product} from './Containers/Product/action_reducer'
-import {productListing} from './Containers/ProductListing/action_reducer'
+// import {headerNav} from './Containers/HeaderNav/action_reducer'
 
-
-const store = createStore(combineReducers({headerNav, coverPhoto, product, productListing}), init)
+const store = createStore(CreateFormReducer)
 
 ReactDOM.render(
     <Provider store={store}>
-        <App />
+        <CreateForm />
     </Provider>
-    , document.getElementById('root'));
+    , document.getElementById('rootContent'));
 registerServiceWorker();
