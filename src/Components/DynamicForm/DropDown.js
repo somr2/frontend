@@ -1,18 +1,13 @@
 import React from 'react';
-import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { DropdownButton, MenuItem } from 'react-bootstrap'
 
-const FormList = ({forms, dropdownState, toggleDropdown, selectForm}) => {
+const FormList = ({forms, selectForm}) => {
     return (
-      <Dropdown isOpen={dropdownState} toggle={toggleDropdown}>
-        <DropdownToggle caret>
-          Forms
-        </DropdownToggle>
-        <DropdownMenu>
-          {forms.map((v,i) => (
-            <DropdownItem key={i} onClick={ () => selectForm(v.Id)}>{v.Name}</DropdownItem>
-          ))}
-        </DropdownMenu>
-      </Dropdown>
+      <DropdownButton title={"Forms"} id={"form"}>
+       {forms.map((v,i) => (
+          <MenuItem key={i} onClick={ () => selectForm(v.Id)}>{v.Name}</MenuItem>
+        ))}
+      </DropdownButton>
     );
   
 }

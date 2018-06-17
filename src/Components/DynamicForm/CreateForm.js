@@ -1,10 +1,7 @@
 import React from 'react';
 import DropDown from './DropDown'
 import DatePicker from './DatePicker';
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
-// import RecordDisplay from './RecordDisplay';
-
-// import './App.css';
+import { Form, FormControl, FormGroup, Col, ControlLabel } from 'react-bootstrap'
 
 // main component for final integration
 class CreateForm extends React.Component {
@@ -13,21 +10,16 @@ class CreateForm extends React.Component {
     fetchForms()
   }
 
-  onchange = (e) => {
-    console.log(e.currentTarget.value)
-    console.log(e.currentTarget.id)
-  }
-
   render(){
-    const {current, forms, dropdownState, toggleDropdown, selectForm, date, changeDate, updateInput} = this.props
+    const {current, forms, selectForm, date, changeDate, updateInput} = this.props
 		return (
 			<div className="container">
 				<div className="row">
 					<div className="col-md-12">
             <DropDown 
-              dropdownState={dropdownState} 
+             
               forms={forms} 
-              toggleDropdown={toggleDropdown} 
+            
               selectForm={selectForm}
             />
 					</div>
@@ -41,22 +33,26 @@ class CreateForm extends React.Component {
 
 				<div className="row">
 					<div className="col-md-6">
-						<Form>
-              {current.Fields.map((v,i) => (
-                <FormGroup key={i}>
-                  <Label for={v.Name}>{v.Name}</Label>
-                  <Input type="text" 
-                    onChange={updateInput} 
+          <Form horizontal>
+            {current && current.Fields && current.Fields.map((v,i) => (
+              <FormGroup key={i}>
+                <Col componentClass={ControlLabel} sm={2}>
+                  {v.Name} 
+                </Col>
+                <Col sm={10}>
+                  <FormControl 
+                    type="text" 
+                    placeholder={v.Name}  
+                    onChange={updateInput}
                     id={v.FieldId} 
                     name={v.Name} 
+                    value={v.Input}
                     datatype={v.Type} 
-                    placeholder={v.Name} 
-                    value={v.Input}/>
-                </FormGroup>
-              ))}
-
-              <Button>Submit</Button>
-						</Form>
+                  />
+                </Col>
+              </FormGroup>
+            ))}
+          </Form>
 						</div>
 				</div>
 

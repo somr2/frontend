@@ -4,31 +4,7 @@ import moment from 'moment'
 // init state
 const init = {
     formList:[],
-    current:{
-        Id: "101",
-        Name: "101 Form",
-        Fields : [
-            {
-                FieldId: "1",
-                Name: "field 1",
-                Type: "string",
-                Input: ""
-            },
-            {
-                FieldId: "2",
-                Name: "field 2",
-                Type: "integer",
-                Input: ""
-            },
-            {
-                FieldId: "3",
-                Name: "field 3",
-                Type: "string",
-                Input: ""
-            }
-        ]
-    },
-    dropdownState: false,
+    current:{},
     date: moment()
 }
 
@@ -40,16 +16,15 @@ export const CreateFormReducer = (state=init, action) => {
                 ...state,
                 formList: action.formList
             }
-        case C.TOGGLE_DROPDOWN:
-            return {
-                ...state,
-                dropdownState: !state.dropdownState
-            }
         case C.SELECT_FORM:
             const current = (state.formList.filter(v =>  v.Id === action.formId))
+            const Fields = current[0].Fields.slice().map(((v, i) => ( { ...v, Input: '' } )))
             return {
                 ...state,
-                current: current[0]
+                current: {
+                    ...current[0],
+                    Fields: Fields
+                }
             }
         case C.CHANGE_DATE:
             return {
@@ -57,7 +32,8 @@ export const CreateFormReducer = (state=init, action) => {
                 date: action.date
             }
         case C.UPDATE_INPUT:
-            console.log(action.currentTarget.id)
+            console.log(typeof action.currentTarget.id)
+
             return {
                 ...state,
                 current: {
@@ -67,7 +43,12 @@ export const CreateFormReducer = (state=init, action) => {
                             v => ( v.FieldId === action.currentTarget.id?
                                    {...v, Input: action.currentTarget.value} : v))
                     ]
-                }
+                },
+                // values: state.values.map((v, i) => {
+                //     console.log(typeof i)
+                //     return (String(i) === action.currentTarget.id? action.currentTarget.value : v)
+                // })
+                // values: [...state.values]
             }
         default:
             return state
