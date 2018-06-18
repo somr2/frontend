@@ -5,7 +5,8 @@ import moment from 'moment'
 const init = {
     formList:[],
     current:{},
-    date: moment()
+    date: moment(),
+    submitStatus: ''
 }
 
 // reducer
@@ -44,11 +45,11 @@ export const CreateFormReducer = (state=init, action) => {
                                    {...v, Input: action.currentTarget.value} : v))
                     ]
                 },
-                // values: state.values.map((v, i) => {
-                //     console.log(typeof i)
-                //     return (String(i) === action.currentTarget.id? action.currentTarget.value : v)
-                // })
-                // values: [...state.values]
+            }
+        case C.SUBMIT_FORM:
+            return {
+                ...state,
+                submitStatus: action.submitStatus
             }
         default:
             return state

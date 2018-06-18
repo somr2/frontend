@@ -9,12 +9,13 @@ import {Provider} from 'react-redux'
 import {CreateFormReducer} from './Reducers/DynamicForm/CreateForm'
 
 import { composeWithDevTools } from 'redux-devtools-extension'
+import thunk from 'redux-thunk';
 // import init from './Store'
 
 // import {headerNav} from './Containers/HeaderNav/action_reducer'
 
 const store = createStore(CreateFormReducer, composeWithDevTools(
-    applyMiddleware()))
+    applyMiddleware(thunk)))
 
 ReactDOM.render(
     <Provider store={store}>
