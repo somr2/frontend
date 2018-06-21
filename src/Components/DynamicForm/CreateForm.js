@@ -1,7 +1,6 @@
 import React from 'react';
 import DropDown from './DropDown'
 import DatePicker from './DatePicker';
-import { Form, FormControl, FormGroup, Col, ControlLabel, Button } from 'react-bootstrap'
 
 // main component for final integration
 class CreateForm extends React.Component {
@@ -14,52 +13,49 @@ class CreateForm extends React.Component {
     const {current, forms, selectForm, date, changeDate, updateInput, submitForm} = this.props
 		return (
 			<div className="container">
-				<div className="row">
-					<div className="col-md-12">
-            <DropDown 
-             
-              forms={forms} 
-            
-              selectForm={selectForm}
-            />
-					</div>
-				</div>
+        <div className="row">
+        
+          <div className="col-md-12">
+            <label>Form List:</label>
+            <DropDown forms={forms} selectForm={selectForm} />
+          </div>
 
-				<div className="row">
-					<div className="col-md-12">
-						<DatePicker date={date} changeDate={changeDate} />
-					</div>
-				</div>
-
-				<div className="row">
-					<div className="col-md-6">
-            {current && current.Fields &&
-              <Form horizontal>
-                {current.Fields.map((v,i) => (
-                  <FormGroup key={i}>
-                    <Col componentClass={ControlLabel} sm={2}>
-                      {v.Name} 
-                    </Col>
-                    <Col sm={10}>
-                      <FormControl 
-                        type="text" 
-                        placeholder={v.Name}  
-                        onChange={updateInput}
-                        id={v.FieldId} 
-                        name={v.Name} 
-                        value={v.Input}
-                        datatype={v.Type} 
-                      />
-                    </Col>
-                  </FormGroup>
-                ))}
-                <Button onClick={e => submitForm(e, current)}>Submit</Button>
-              </Form>
-            }
-					</div>
-				</div>
-
-			</div>
+          <div className="radio-inline">
+            <label>
+              <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked />
+              All
+            </label>
+          </div>
+          <div className="radio-inline">
+            <label>
+              <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2" />
+              Range
+            </label>
+          </div>
+        
+          <div className="form-inline">
+              <label>Start Date:</label>
+              <DatePicker date={date} changeDate={changeDate} />
+        
+              <label>End Date:</label>
+              <DatePicker date={date} changeDate={changeDate} />
+          </div>
+              
+        </div>
+        <div className="row">
+        {
+          Array(12).fill(0).map((v,i) => (
+            <div className="col-md-4" key={i}>
+              <div className="panel panel-default">
+                <div className="panel-heading">Panel heading without title</div>
+                <div className="panel-body">
+                  Panel content
+                </div>
+              </div>
+            </div>))
+        }
+        </div>
+      </div>
     )
   }
 }
