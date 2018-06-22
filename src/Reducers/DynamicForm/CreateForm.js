@@ -3,53 +3,36 @@ import moment from 'moment'
 
 // init state
 const init = {
-    formList:[],
+    formList:[{ Id: 0, Name: 'All' }],
     current:{},
-    date: moment(),
-    submitStatus: ''
+    startDate: moment(),
+    endDate: moment(),
+    limitedDateRange: 'All',
 }
 
 // reducer
 export const CreateFormReducer = (state=init, action) => {
     switch(action.type){
-        case C.FETCH_FORMS:
-            return {
-                ...state,
-                formList: action.formList
-            }
+        case C.FETCH_DROPDOWN:
+            console.log('done')
+            return state
         case C.SELECT_FORM:
-            const current = (state.formList.filter(v =>  v.Id === action.formId))
-            const Fields = current[0].Fields.slice().map(((v, i) => ( { ...v, Input: '' } )))
+            console.log('done')
+            return state
+        case C.CHANGE_DATE_FILTER:
             return {
                 ...state,
-                current: {
-                    ...current[0],
-                    Fields: Fields
-                }
+                limitedDateRange: action.limitedDateRange
             }
-        case C.CHANGE_DATE:
+        case C.SELECT_START_DATE:
             return {
                 ...state,
-                date: action.date
+                startDate: action.date
             }
-        case C.UPDATE_INPUT:
-            console.log(typeof action.currentTarget.id)
-
+        case C.SELECT_END_DATE:
             return {
                 ...state,
-                current: {
-                    ...state.current, 
-                    Fields: [
-                        ...state.current.Fields.map(
-                            v => ( v.FieldId === action.currentTarget.id?
-                                   {...v, Input: action.currentTarget.value} : v))
-                    ]
-                },
-            }
-        case C.SUBMIT_FORM:
-            return {
-                ...state,
-                submitStatus: action.submitStatus
+                endDate: action.date
             }
         default:
             return state

@@ -3,8 +3,13 @@ import {formList} from '../../TempAPI/getForms'
 
 // actions
 export const actions = {
-    fetchForms: dispatch => dispatch({type: C.FETCH_FORMS, formList: formList}),
+    fetchForms: dispatch => dispatch({type: C.FETCH_DROPDOWN, formList: formList}),
     selectForm: (dispatch, id) => dispatch({type: C.SELECT_FORM, formId: id}),
-    changeDate: (dispatch,date) => dispatch({type: C.CHANGE_DATE, date: date}),
-    updateInput: (dispatch, currentTarget) => dispatch({type: C.UPDATE_INPUT, currentTarget: currentTarget})
+    changeDateFilter: (dispatch, limitedDateRange) => 
+    {
+        console.log(limitedDateRange)
+        dispatch({type: C.CHANGE_DATE_FILTER, limitedDateRange})
+    },
+    changeStartDate: (dispatch, date) => dispatch({type: C.SELECT_START_DATE, date}),
+    changeEndDate: (dispatch, date) => dispatch({type: C.SELECT_END_DATE, date})
 }

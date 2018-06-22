@@ -1,0 +1,6 @@
+.form-inline {
+    padding-left:10px;
+}
+.form-inline > * {
+    margin-left:15px !important;
+}

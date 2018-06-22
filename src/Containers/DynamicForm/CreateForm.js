@@ -1,4 +1,5 @@
 import {connect} from 'react-redux'
+import momement from 'moment'
 import CreateForm from '../../Components/DynamicForm/CreateForm'
 import {actions} from '../../Actions/DynamicForm'
 
@@ -6,14 +7,19 @@ export default connect(
     state => ({
         forms: state.formList,
         current: state.current,
-        date: state.date,
-        submitStatus: state.submitStatus
+        startDate: state.startDate,
+        endDate: state.endDate,
+        limitedDateRange: state.limitedDateRange,
+
     }), 
     dispatch => ({
         fetchForms: () => actions.fetchForms(dispatch),
         selectForm: id => actions.selectForm(dispatch, id),
-        changeDate: date => actions.changeDate(dispatch, date),
-        updateInput: e => actions.updateInput(dispatch, e.currentTarget),
-        submitForm: (e, current) => actions.submitForm(dispatch, e, current)()
+        changeDateFilter: e => {
+            console.log(e.currentTarget.value);
+            actions.changeDateFilter(dispatch, e.currentTarget.value)
+        },
+        changeStartDate: date => actions.changeStartDate(dispatch, date),
+        changeEndDate: date => actions.changeEndDate(dispatch, date),
     })
 )(CreateForm)
